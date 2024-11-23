@@ -1,2 +1,2 @@
-# kindergarden
-Spring project for kindergarden
+# school project
+Spring project for school, using spring MVC, Themeleaf 
