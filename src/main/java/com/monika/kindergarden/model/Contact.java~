@@ -15,7 +15,7 @@ public class Contact {
     @NotBlank(message = "mobile number must not be blank")
     @Pattern(regexp="(^$|[0-9]{10})", message = "mobile number must be exactly 10 digits long")
     private String mobileNum;
-
+    
     @NotBlank(message = "email must not be blank")
     @Email(message = "Please provide a valid email address")
     private String email;

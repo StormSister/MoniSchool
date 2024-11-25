@@ -2,14 +2,15 @@ package com.monika.kindergarden.controller;
 
 import com.monika.kindergarden.model.Contact;
 import com.monika.kindergarden.service.ContactService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -23,16 +24,21 @@ public class ContactController {
     }
 
 
-    @RequestMapping("/contact")
-    public String displayContactPage(){
-        return "contact.html";
+    @GetMapping("/contact")
+    public String contactPage(Model model) {
+        model.addAttribute("contact", new Contact());
+        return "contact";
     }
 
 
     @PostMapping(value = "/saveMsg")
-    public ModelAndView saveMessage(Contact contact){
+    public String saveMessage(@Valid @ModelAttribute("contact") Contact contact, Errors errors){
         contactService.saveMessageDetails(contact);
+        if(errors.hasErrors()){
+            log.error("Contact form validation failed", errors.toString());
+            return "contact.html";
+        }
 
-        return new ModelAndView("redirect:/contact");
+        return "redirect:/contact";
     }
 }
