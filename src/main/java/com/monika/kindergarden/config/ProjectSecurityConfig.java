@@ -18,15 +18,22 @@ public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((requests) -> requests.requestMatchers("/", "/home").permitAll()
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/dashboard").authenticated()
+                        .requestMatchers("/", "/home").permitAll()
+                        .requestMatchers("/login").permitAll()
                         .requestMatchers("/holidays/**").permitAll()
                         .requestMatchers("/contact").permitAll()
                         .requestMatchers("/saveMsg").permitAll()
                         .requestMatchers("/courses").permitAll()
                         .requestMatchers("/about").permitAll()
                         .requestMatchers("/assets/**").permitAll())
-                .formLogin(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults());
+
+                .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login")
+                        .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll())
+                .logout(logoutConfigurer -> logoutConfigurer.logoutSuccessUrl("/login?logout=true")
+                        .invalidateHttpSession(true).permitAll());
+//                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 
@@ -35,10 +42,10 @@ public class ProjectSecurityConfig {
         UserDetails admin = User.withDefaultPasswordEncoder()
                 .username("admin")
                 .password("admin")
-                .roles("ADMIN")
+                .roles("USER", "ADMIN")
                .build();
         UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
+                .username("Marco")
                 .password("user")
                 .roles("USER")
                 .build();
