@@ -15,7 +15,7 @@ public class DashboardController {
         model.addAttribute("roles", authentication.getAuthorities());
         log.info(model.toString());
         log.info("User {} accessed dashboard", authentication.getName());
-        throw new RuntimeException("It is a bad day");
-//        return "dashboard.html";
+//        throw new RuntimeException("It is a bad day");
+        return "dashboard.html";
     }
 }
