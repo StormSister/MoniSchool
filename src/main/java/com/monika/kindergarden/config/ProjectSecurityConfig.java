@@ -18,8 +18,8 @@ public class ProjectSecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf->csrf.ignoringRequestMatchers("/saveMsg")
-                        .ignoringRequestMatchers(PathRequest.toH2Console()))
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg"))
+
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/displayMessages").hasRole("ADMIN")
@@ -32,7 +32,6 @@ public class ProjectSecurityConfig {
                         .requestMatchers("/courses").permitAll()
                         .requestMatchers("/about").permitAll()
                         .requestMatchers("/logout").permitAll()
-                        .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .requestMatchers("/assets/**").permitAll())
 
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login")
@@ -40,8 +39,6 @@ public class ProjectSecurityConfig {
                 .logout(logoutConfigurer -> logoutConfigurer.logoutSuccessUrl("/login?logout=true")
                         .invalidateHttpSession(true).permitAll());
 //                .httpBasic(Customizer.withDefaults());
-        http.headers(headersConfigurer -> headersConfigurer
-                .frameOptions(frameOptionsConfig -> frameOptionsConfig.disable()));
         return http.build();
     }
 
@@ -51,7 +48,7 @@ public class ProjectSecurityConfig {
                 .username("admin")
                 .password("admin")
                 .roles("ADMIN")
-               .build();
+                .build();
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username("Marco")
                 .password("user")
