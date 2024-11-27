@@ -22,6 +22,8 @@ public class ProjectSecurityConfig {
                         .ignoringRequestMatchers(PathRequest.toH2Console()))
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/dashboard").authenticated()
+                        .requestMatchers("/displayMessages").hasRole("ADMIN")
+                        .requestMatchers("/closeMsg/**").hasRole("ADMIN")
                         .requestMatchers("/", "/home").permitAll()
                         .requestMatchers("/login/**").permitAll()
                         .requestMatchers("/holidays/**").permitAll()
@@ -48,7 +50,7 @@ public class ProjectSecurityConfig {
         UserDetails admin = User.withDefaultPasswordEncoder()
                 .username("admin")
                 .password("admin")
-                .roles("USER", "ADMIN")
+                .roles("ADMIN")
                .build();
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username("Marco")
