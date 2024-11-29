@@ -1,15 +1,26 @@
 package com.monika.kindergarden.model;
+import jakarta.persistence.Entity;
 import lombok.Data;
 
+import lombok.Data;
+
+import jakarta.persistence.*;
+
 @Data
+@Entity
+@Table(name="holidays")
 public class Holiday extends BaseEntity {
-    private  String day;
-    private  String reason;
-    private  Type type;
+
+    @Id
+    private String day;
+
+    private String reason;
+
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
     public enum Type {
-        FESTIVAL,
-        FEDERAL
+        FESTIVAL, FEDERAL
     }
-
 }
+
