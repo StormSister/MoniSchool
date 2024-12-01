@@ -12,7 +12,7 @@ public class Roles {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
-    @GenericGenerator(name = "native",strategy = "native")
+    @GenericGenerator(name = "native")
     private int roleId;
 
     private String roleName;

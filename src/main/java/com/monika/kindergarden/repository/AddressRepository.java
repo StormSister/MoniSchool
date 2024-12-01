@@ -1,9 +1,9 @@
 package com.monika.kindergarden.repository;
 
-import com.monika.kindergarden.model.Person;
+import com.monika.kindergarden.model.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PersonRepository extends JpaRepository<Person, Integer> {
+public interface AddressRepository extends JpaRepository<Address, Integer> {
 }
