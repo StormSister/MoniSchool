@@ -14,9 +14,9 @@ public class PasswordStrengthValidator implements ConstraintValidator<PasswordVa
     public void initialize(PasswordValidator passwordValidator) {
         weakPasswords = Arrays.asList("password123", "123456", "qwerty", "123456789", "abc123");
     }
-    
+
     @Override
     public boolean isValid(String passwordField, ConstraintValidatorContext constraintValidatorContext) {
-        return passwordField!=null && !weakPasswords.contains(passwordField);
+        return passwordField!=null && !weakPasswords.contains(passwordField.toLowerCase());
     }
 }
