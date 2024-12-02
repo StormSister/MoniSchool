@@ -4,7 +4,7 @@ spring.datasource.password=spec22spec
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 
-spring.jpa.properties.javax.persistence.validation.mode=none
+spring.jpa.properties.javax.persistance.validation.mode = none
 
 
 
