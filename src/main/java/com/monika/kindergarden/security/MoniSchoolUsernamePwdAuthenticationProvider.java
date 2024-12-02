@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,8 +20,14 @@ import java.util.List;
 @Component
 public class MoniSchoolUsernamePwdAuthenticationProvider implements AuthenticationProvider {
 
-    @Autowired
+
     private PersonRepository personRepository;
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    public MoniSchoolUsernamePwdAuthenticationProvider(PersonRepository person, PasswordEncoder passwordEncoder){
+        this.personRepository = person;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -28,7 +35,8 @@ public class MoniSchoolUsernamePwdAuthenticationProvider implements Authenticati
         String pwd = authentication.getCredentials().toString();
         Person person = personRepository.readByEmail(email);
 
-        if (person != null && person.getPersonId() > 0 && person.getPwd().equals(pwd)) {
+        if (person != null && person.getPersonId() > 0 &&
+                passwordEncoder.matches(pwd, person.getPwd())) {
             return new UsernamePasswordAuthenticationToken(person.getName(), null, getGrantedAuthorities(person.getRoles()));
         } else {
             throw new BadCredentialsException("Invalid email or password");
