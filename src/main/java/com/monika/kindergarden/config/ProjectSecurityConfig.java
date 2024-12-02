@@ -24,6 +24,7 @@ public class ProjectSecurityConfig {
 
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/dashboard").authenticated()
+                        .requestMatchers("/displayProfile").authenticated()
                         .requestMatchers("/displayMessages").hasRole("ADMIN")
                         .requestMatchers("/closeMsg/**").hasRole("ADMIN") //request parameters
                         .requestMatchers("/", "/home").permitAll()
