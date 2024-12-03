@@ -45,7 +45,7 @@ public class AdminController {
 //        return modelAndView;
 //    }
 
-    @PostMapping("/admin/addNewClass")
+    @PostMapping("/addNewClass")
     public ModelAndView addNewClass(Model model, @ModelAttribute("moniClass") @Valid MoniClass moniClass) {
         moniClassRepository.save(moniClass);
         ModelAndView modelAndView = new ModelAndView("redirect:/admin/displayClasses");
@@ -53,7 +53,7 @@ public class AdminController {
 
     }
 
-    @DeleteMapping("/deleteClass")
+    @RequestMapping("/deleteClass")
     public ModelAndView deleteClass(Model model, @RequestParam int id) {
         Optional<MoniClass> moniClass = moniClassRepository.findById(id);
         for(Person person : moniClass.get().getPersons()){
@@ -61,7 +61,7 @@ public class AdminController {
             personRepository.save(person);
         }
         moniClassRepository.deleteById(id);
-        ModelAndView modelAndView = new ModelAndView("redirect:admin/displayClasses");
+        ModelAndView modelAndView = new ModelAndView("redirect:/admin/displayClasses");
         return modelAndView;
 
     }
