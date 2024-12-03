@@ -1,7 +1,9 @@
 package com.monika.kindergarden.controller;
 
+import com.monika.kindergarden.model.Courses;
 import com.monika.kindergarden.model.MoniClass;
 import com.monika.kindergarden.model.Person;
+import com.monika.kindergarden.repository.CoursesRepository;
 import com.monika.kindergarden.repository.MoniClassRepository;
 import com.monika.kindergarden.repository.PersonRepository;
 import jakarta.servlet.http.HttpSession;
@@ -24,10 +26,14 @@ public class AdminController {
     private MoniClassRepository moniClassRepository;
     private PersonRepository personRepository;
 
+    private CoursesRepository coursesRepository;
+
+
     @Autowired
-    public AdminController(MoniClassRepository moniClassRepository, PersonRepository personRepository) {
+    public AdminController(MoniClassRepository moniClassRepository, PersonRepository personRepository, CoursesRepository coursesRepository) {
         this.moniClassRepository = moniClassRepository;
         this.personRepository = personRepository;
+        this.coursesRepository = coursesRepository;
     }
 
     @RequestMapping("/displayClasses")
@@ -40,11 +46,7 @@ public class AdminController {
         return modelAndView;
     }
 
-//    @RequestMapping("/displayCourses")
-//    public ModelAndView displayCourses(Model model){
-//        ModelAndView modelAndView = new ModelAndView("courses");
-//        return modelAndView;
-//    }
+
 
     @PostMapping("/addNewClass")
     public ModelAndView addNewClass(Model model, @ModelAttribute("moniClass") @Valid MoniClass moniClass) {
@@ -109,6 +111,23 @@ public class AdminController {
         moniClassRepository.save(moniClass);
         session.setAttribute("moniClass", moniClass);
         ModelAndView modelAndView = new ModelAndView("redirect:/admin/displayStudents?classId=" + moniClass.getClassId());
+        return modelAndView;
+    }
+
+    @RequestMapping("/displayCourses")
+    public ModelAndView displayCourses(Model model) {
+        List<Courses> courses = coursesRepository.findAll();
+        ModelAndView modelAndView = new ModelAndView("courses_secure.html");
+        modelAndView.addObject("courses", courses);
+        modelAndView.addObject("course", new Courses());
+        return modelAndView;
+    }
+
+    @PostMapping("/addNewCourse")
+    public ModelAndView addNewCourse(Model model, @ModelAttribute("course") Courses course){
+        ModelAndView modelAndView = new ModelAndView();
+        coursesRepository.save(course);
+        modelAndView.setViewName("redirect:/admin/displayCourses");
         return modelAndView;
     }
 }
