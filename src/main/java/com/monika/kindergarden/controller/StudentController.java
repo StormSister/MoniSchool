@@ -5,12 +5,16 @@ import com.monika.kindergarden.repository.CoursesRepository;
 import com.monika.kindergarden.repository.MoniClassRepository;
 import com.monika.kindergarden.repository.PersonRepository;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@Slf4j
+@RequestMapping("/student")
 public class StudentController {
 
     MoniClassRepository moniClassRepository;
