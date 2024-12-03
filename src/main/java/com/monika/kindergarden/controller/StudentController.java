@@ -34,7 +34,7 @@ public class StudentController {
     public ModelAndView displayCourses(Model model, HttpSession session){
         Person person = (Person) session.getAttribute("loggedInPerson");
         ModelAndView modelAndView = new ModelAndView("courses_enrolled.html");
-        modelAndView.addObject("person, person");
+        modelAndView.addObject("person", person);
         return modelAndView;
 
     }
