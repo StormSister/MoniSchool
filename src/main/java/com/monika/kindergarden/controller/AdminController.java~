@@ -134,8 +134,8 @@ public class AdminController {
     @GetMapping("/viewStudents")
     public ModelAndView viewStudents(Model model, @RequestParam int id){
         ModelAndView modelAndView = new ModelAndView("course_students.html");
-        Optional<Courses> courses = coursesRepository.findById(id);
-        modelAndView.addObject("courses", courses.get());
+        Optional<Courses> course = coursesRepository.findById(id);
+        modelAndView.addObject("course", course.get());
         modelAndView.addObject("person", new Person());
         return modelAndView;
     }
