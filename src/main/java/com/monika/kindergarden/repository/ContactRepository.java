@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Integer> {
-    List<Contact> findAllByStatus(String status);
+    List<Contact> findByStatus(String status);
 
     @Query("SELECT c FROM Contact c WHERE c.status = :status")
 //    JPQL Query

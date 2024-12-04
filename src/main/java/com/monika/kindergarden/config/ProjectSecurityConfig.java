@@ -46,8 +46,8 @@ public class ProjectSecurityConfig {
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login")
                         .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll())
                 .logout(logoutConfigurer -> logoutConfigurer.logoutSuccessUrl("/login?logout=true")
-                        .invalidateHttpSession(true).permitAll());
-//                .httpBasic(Customizer.withDefaults());
+                        .invalidateHttpSession(true).permitAll())
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 
@@ -56,20 +56,6 @@ public class ProjectSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    public InMemoryUserDetailsManager userDetailsService() {
-//        UserDetails admin = User.withDefaultPasswordEncoder()
-//                .username("admin")
-//                .password("admin")
-//                .roles("ADMIN")
-//                .build();
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//                .username("Marco")
-//                .password("user")
-//                .roles("USER")
-//                .build();
-//        return new InMemoryUserDetailsManager(admin, user);
-//    }
 
 
 }
