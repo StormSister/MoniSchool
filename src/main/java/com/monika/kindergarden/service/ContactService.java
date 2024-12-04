@@ -43,13 +43,8 @@ public class ContactService {
 
     public boolean updateMsgStatus(int contactId) {
         boolean isUpdated = false;
-        Optional<Contact> contact = contactRepository.findById(contactId);
-        contact.ifPresent(contact1 -> {
-                    contact1.setStatus(MoniSchoolConstans.CLOSE);
-                }
-        );
-        Contact updatedContact = contactRepository.save(contact.get());
-        if (null != updatedContact && updatedContact.getUpdatedBy() != null) {
+        int rows = contactRepository.updateStatusById(MoniSchoolConstans.CLOSE, contactId);
+        if (rows > 0) {
             isUpdated = true;
         }
         return isUpdated;
