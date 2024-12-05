@@ -1,5 +1,6 @@
 package com.monika.kindergarden.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.monika.kindergarden.annotations.FieldsValueMatch;
 import com.monika.kindergarden.annotations.PasswordValidator;
 import jakarta.persistence.*;
@@ -53,11 +54,14 @@ public class Person extends BaseEntity {
     @Transient
     private String confirmEmail;
 
+
+    @JsonIgnore
     @NotBlank(message = "Password must not be blank")
     @Size(min = 5, message = "Password must not be less than 5 characters")
     @PasswordValidator
     private String pwd;
 
+    @JsonIgnore
     @NotBlank(message = "Confirm Password must not be blank")
     @Size(min = 5, message = "Confirm Password must not be less than 5 characters")
     @Transient
