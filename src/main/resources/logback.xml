@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Zmienna dla katalogu logów -->
+    <property name="LOGS" value="C://logs" />
+
+    <!-- Konsolowy appender -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{ISO8601} %-5level [%t] %C{1}: %msg%n%throwable</Pattern>
+        </layout>
+    </appender>
+
+    <!-- Appender do logowania z rotacją plików -->
+    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- Główny plik logów -->
+        <file>${LOGS}/spring-boot-logger.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- Wzorzec dla plików archiwalnych -->
+            <fileNamePattern>${LOGS}/archived/spring-boot-logger-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- Maksymalny rozmiar pliku -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- Ile plików zachowywać w historii -->
+            <maxHistory>30</maxHistory>
+            <!-- Maksymalny łączny rozmiar logów -->
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %-5level %C{1} [%t] %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!-- Globalny poziom logowania (INFO) -->
+    <root level="info">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+    </root>
+
+    <!-- Logowanie tylko błędów dla pakietu com.monika.monischool -->
+    <logger name="com.monika.monischool" level="error" additivity="false">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+    </logger>
+
+</configuration>
