@@ -20,10 +20,10 @@ public class DashboardController {
     @Autowired
     PersonRepository personRepository;
 
-    @Value("${monischool.pageSize}")
+    @Value("${eazyschool.pageSize}")
     private int defaultPageSize;
 
-    @Value("${monischool.contact.successMsg}")
+    @Value("${eazyschool.contact.successMsg}")
     private String message;
 
     @Autowired

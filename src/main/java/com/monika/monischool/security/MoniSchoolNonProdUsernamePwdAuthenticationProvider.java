@@ -19,14 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Profile("prod")
-public class MoniSchoolUsernamePwdAuthenticationProvider implements AuthenticationProvider {
+@Profile("!prod")
+
+public class MoniSchoolNonProdUsernamePwdAuthenticationProvider implements AuthenticationProvider {
 
 
     private PersonRepository personRepository;
     private PasswordEncoder passwordEncoder;
     @Autowired
-    public MoniSchoolUsernamePwdAuthenticationProvider(PersonRepository person, PasswordEncoder passwordEncoder){
+    public MoniSchoolNonProdUsernamePwdAuthenticationProvider(PersonRepository person, PasswordEncoder passwordEncoder){
         this.personRepository = person;
         this.passwordEncoder = passwordEncoder;
     }
@@ -37,8 +38,7 @@ public class MoniSchoolUsernamePwdAuthenticationProvider implements Authenticati
         String pwd = authentication.getCredentials().toString();
         Person person = personRepository.readByEmail(email);
 
-        if (person != null && person.getPersonId() > 0 &&
-                passwordEncoder.matches(pwd, person.getPwd())) {
+        if (person != null && person.getPersonId() > 0 ) {
             return new UsernamePasswordAuthenticationToken(email, null, getGrantedAuthorities(person.getRoles()));
         } else {
             throw new BadCredentialsException("Invalid email or password");

@@ -37,7 +37,7 @@
     </root>
 
     <!-- Logowanie tylko błędów dla pakietu com.monika.monischool -->
-    <logger name="com.monika.monischool" level="error" additivity="false">
+    <logger name="com.monika.monischool" level="info" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </logger>

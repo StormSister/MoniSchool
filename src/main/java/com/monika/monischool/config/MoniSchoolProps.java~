@@ -12,9 +12,9 @@ import jakarta.validation.constraints.Min;
 import java.util.List;
 import java.util.Map;
 
-@Component("moniSchoolProps")
+@Component("eazySchoolProps")
 @Data
-@ConfigurationProperties(prefix = "monischool")
+@ConfigurationProperties(prefix = "eazyschool")
 @Validated
 public class MoniSchoolProps {
 

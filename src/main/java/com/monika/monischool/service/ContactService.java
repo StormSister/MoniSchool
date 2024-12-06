@@ -1,5 +1,6 @@
 package com.monika.monischool.service;
 
+
 import com.monika.monischool.config.MoniSchoolProps;
 import com.monika.monischool.constans.MoniSchoolConstans;
 import com.monika.monischool.model.Contact;
@@ -12,20 +13,32 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-@Service
+import java.util.Optional;
+
+/*
+@Slf4j, is a Lombok-provided annotation that will automatically generate an SLF4J
+Logger static property in the class at compilation time.
+* */
 @Slf4j
+@Service
 public class ContactService {
+
     @Autowired
     private ContactRepository contactRepository;
 
     @Autowired
     MoniSchoolProps moniSchoolProps;
 
-    public boolean saveMessageDetails(Contact contact) {
+    /**
+     * Save Contact Details into DB
+     * @param contact
+     * @return boolean
+     */
+    public boolean saveMessageDetails(Contact contact){
         boolean isSaved = false;
         contact.setStatus(MoniSchoolConstans.OPEN);
         Contact savedContact = contactRepository.save(contact);
-        if (null != savedContact && savedContact.getContactId() > 0) {
+        if(null != savedContact && savedContact.getContactId()>0) {
             isSaved = true;
         }
         return isSaved;
@@ -44,14 +57,17 @@ public class ContactService {
         return msgPage;
     }
 
-    public boolean updateMsgStatus(int contactId) {
+    public boolean updateMsgStatus(int contactId){
         boolean isUpdated = false;
-        int rows = contactRepository.updateStatusById(MoniSchoolConstans.CLOSE, contactId);
-        if (rows > 0) {
+        Optional<Contact> contact = contactRepository.findById(contactId);
+        contact.ifPresent(contact1 -> {
+            contact1.setStatus(MoniSchoolConstans.CLOSE);
+        });
+        Contact updatedContact = contactRepository.save(contact.get());
+        if(null != updatedContact && updatedContact.getUpdatedBy()!=null) {
             isUpdated = true;
         }
         return isUpdated;
     }
-
 
 }

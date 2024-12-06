@@ -39,18 +39,17 @@ public class ProjectSecurityConfig {
 
 
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login")
-                        .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll())
+                        .defaultSuccessUrl("/dashboard", true).failureUrl("/login?error=true").permitAll())
                 .logout(logoutConfigurer -> logoutConfigurer.logoutSuccessUrl("/login?logout=true")
-                        .invalidateHttpSession(true).permitAll())
-                .httpBasic(Customizer.withDefaults());
+                        .invalidateHttpSession(true).permitAll());
+//                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 
 }
