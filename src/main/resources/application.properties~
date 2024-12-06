@@ -38,10 +38,16 @@ monischool.branches[3]=Singapore
 management.endpoints.web.base-path=/monischool/actuator
 spring.boot.admin.client.url=http://localhost:9000
 
-
+# Adres podstawowy aplikacji klienckiej (gdzie dost?pny jest serwis)
 spring.boot.admin.client.instance.service-base-url=http://localhost:8080
+
+# Adres Actuator w aplikacji klienckiej
 spring.boot.admin.client.instance.management-base-url=http://localhost:8080/monischool/actuator
+
+# Adres health endpoint (punkt zdrowia) aplikacji klienckiej
 spring.boot.admin.client.instance.health-url=http://<adres_klienta>:8080/monischool/actuator/health
+
+# Podstawowe ustawienia aplikacji
 spring.application.name=MoniSchool
 management.endpoints.web.exposure.include=*
 management.endpoint.health.show-details=always

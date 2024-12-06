@@ -42,8 +42,8 @@ public class ProjectSecurityConfig {
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login")
                         .defaultSuccessUrl("/dashboard", true).failureUrl("/login?error=true").permitAll())
                 .logout(logoutConfigurer -> logoutConfigurer.logoutSuccessUrl("/login?logout=true")
-                        .invalidateHttpSession(true).permitAll());
-//                .httpBasic(Customizer.withDefaults());
+                        .invalidateHttpSession(true).permitAll())
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 

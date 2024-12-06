@@ -1,0 +1,4 @@
+package com.monika.monischool.audit;
+
+public class MoniSchoolInfo {
+}
