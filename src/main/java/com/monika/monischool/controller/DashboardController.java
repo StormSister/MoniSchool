@@ -43,8 +43,6 @@ public class DashboardController {
         log.info("Info message from the Dashboard page");
         log.debug("Debug message from the Dashboard page");
         log.trace("Trace message from the Dashboard page");
-
-        // Logowanie wartości zmiennej środowiskowej JAVA_HOME
         String javaHome = environment.getProperty("JAVA_HOME", "JAVA_HOME is not set");
         log.error("JAVA_HOME = " + javaHome);
     }
