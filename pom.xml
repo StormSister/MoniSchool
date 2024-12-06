@@ -9,10 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.monika</groupId>
-	<artifactId>kindergarden</artifactId>
+	<artifactId>monischool</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>kindergarden</name>
-	<description>Project for kindergarden</description>
+	<name>monischool</name>
+	<packaging>jar</packaging>
+	<description>Project for school</description>
 	<url/>
 	<licenses>
 		<license/>

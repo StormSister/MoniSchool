@@ -13,15 +13,15 @@ spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.properties.javax.persistence.validation.mode=none
 spring.data.rest.basePath=/data-api
 
-monischool.pageSize=10
+eazyschool.pageSize=10
 
-monischool.contact.pageSize=5
-monischool.contact.successMsg=Your message is submitted successfully.
+eazyschool.contact.pageSize=5
+eazyschool.contact.successMsg=Your message is submitted successfully.
 
-monischool.branches[0]=NewYork
-monischool.branches[1]=Delhi
-monischool.branches[2]=Paris
-monischool.branches[3]=Singapore
+eazyschool.branches[0]=NewYork
+eazyschool.branches[1]=Delhi
+eazyschool.branches[2]=Paris
+eazyschool.branches[3]=Singapore
 
 
 #degub=true
@@ -32,6 +32,7 @@ logging.level.monischool_error.level=ERROR
 
 spring.output.ansi.enabled=always
 
+monischool.pageSize = 5
 
 
 

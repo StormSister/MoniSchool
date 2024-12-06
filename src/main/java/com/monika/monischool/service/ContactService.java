@@ -1,5 +1,6 @@
 package com.monika.monischool.service;
 
+import com.monika.monischool.config.MoniSchoolProps;
 import com.monika.monischool.constans.MoniSchoolConstans;
 import com.monika.monischool.model.Contact;
 import com.monika.monischool.repository.ContactRepository;
@@ -17,6 +18,9 @@ public class ContactService {
     @Autowired
     private ContactRepository contactRepository;
 
+    @Autowired
+    MoniSchoolProps moniSchoolProps;
+
     public boolean saveMessageDetails(Contact contact) {
         boolean isSaved = false;
         contact.setStatus(MoniSchoolConstans.OPEN);
@@ -24,12 +28,14 @@ public class ContactService {
         if (null != savedContact && savedContact.getContactId() > 0) {
             isSaved = true;
         }
-
         return isSaved;
     }
 
     public Page<Contact> findMsgsWithOpenStatus(int pageNum,String sortField, String sortDir){
-        int pageSize = 5;
+        int pageSize = moniSchoolProps.getPageSize();
+        if(null!=moniSchoolProps.getContact() && null!=moniSchoolProps.getContact().get("pageSize")){
+            pageSize = Integer.parseInt(moniSchoolProps.getContact().get("pageSize").trim());
+        }
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
                 sortDir.equals("asc") ? Sort.by(sortField).ascending()
                         : Sort.by(sortField).descending());
