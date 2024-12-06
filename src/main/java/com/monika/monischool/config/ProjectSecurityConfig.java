@@ -13,7 +13,7 @@ public class ProjectSecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg", "/public/**", "/api/**", "/data-api/**"))
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg", "/public/**", "/api/**", "/data-api/**", "/monischool/actuator/**"))
 
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/dashboard").authenticated()
@@ -23,6 +23,7 @@ public class ProjectSecurityConfig {
                         .requestMatchers("/data-api/**").authenticated()
                         .requestMatchers("/displayMessages/**").hasRole("ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/monischool/actuator/**").hasRole("ADMIN")
                         .requestMatchers("/closeMsg/**").hasRole("ADMIN")
                         .requestMatchers("/student/**").hasRole("STUDENT")
                         .requestMatchers("/", "/home").permitAll()
@@ -33,8 +34,8 @@ public class ProjectSecurityConfig {
                         .requestMatchers("/courses").permitAll()
                         .requestMatchers("/about").permitAll()
                         .requestMatchers("/logout").permitAll()
-//                        .requestMatchers("/data-api/**").permitAll()
                         .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/assets/**").permitAll())
 
 
